@@ -27,7 +27,8 @@
       ]
     },
     "types": [
-      "node"
+      "node",
+      "jest"
     ],
     "typeRoots": [
       "node_modules/@types"
@@ -35,7 +36,7 @@
   },
   "include": [
     "src/**/*.ts",
-    "spec/**/*.ts"
+    "tests/**/*.ts"
   ],
   "exclude": [
     "src/public/"

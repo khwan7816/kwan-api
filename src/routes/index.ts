@@ -1,17 +1,25 @@
+import glob from 'glob'
+import _ from 'lodash'
+
 import { Router } from 'express';
 import UserRouter from './Users';
-import dotenv from 'dotenv';
 
 // Init router and path
 const router = Router();
 
-dotenv.config();
-console.log(process.env.NODE_ENV)
-console.log(process.env.PORT)
-console.log(process.env.HOST)
-
 // Add sub-routes
-router.use('/users', UserRouter);
+// router.use('/users', UserRouter);
+
+const rule = '*';
+const routes = glob.sync(rule, {
+  cwd: __dirname,
+  ignore: '**/*.*(ts|js)'
+});
+
+_.forEach(routes, async route => {
+  const file = await import(`./${route}`);
+  router.use(`/${route}`,  file.default);
+})
 
 // Export the base-router
 export default router;
